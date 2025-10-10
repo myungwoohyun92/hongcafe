@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="31" viewBox="0 0 31.5 31">
+    <path d="M-479.443-390.654h-22.809a1.953 1.953 0 0 0 1.971-1.453c1.623-4.377-2.7-17.132 9.433-17.132s7.81 12.755 9.433 17.132a1.954 1.954 0 0 0 1.972 1.453" transform="translate(505.963 411.991)" style="fill:#f9d366"/>
+    <path d="M-572.279-46.418a2.208 2.208 0 0 1-2.208 2.208H-597.3a2.2 2.2 0 0 1-1.562-.647 2.2 2.2 0 0 1-.647-1.562 2.209 2.209 0 0 1 2.208-2.208h22.809a2.2 2.2 0 0 1 1.562.647 2.2 2.2 0 0 1 .647 1.562" transform="translate(601.008 70.292)" style="fill:#f1c346"/>
+    <path d="M-438-360.094h-11.855a2.263 2.263 0 0 1-2.261-2.335c.167-5.4-.695-14.694 4.594-14.8-14.518.075-5.238 18.585-11.316 18.585h22.809a1.954 1.954 0 0 1-1.971-1.45" transform="translate(462.546 379.978)" style="fill:#f1c346"/>
+    <path d="M-438.141-46.418a2.208 2.208 0 0 1-2.208 2.208h-16.428a2.2 2.2 0 0 1-1.562-.647 2.2 2.2 0 0 1-.647-1.562 2.208 2.208 0 0 1 2.208-2.208h16.428a2.2 2.2 0 0 1 1.562.647 2.2 2.2 0 0 1 .647 1.562" transform="translate(466.87 70.292)" style="fill:#f9d366"/>
+    <path d="M-185.686 0a4.419 4.419 0 0 1-3.236 4.257 4.418 4.418 0 0 1-1.181.16A4.417 4.417 0 0 1-194.52 0z" transform="translate(205.221 26.082)" style="fill:#f1c346"/>
+    <path d="M-114.94 0a4.427 4.427 0 0 1-3.022 2.895 4.42 4.42 0 0 1-2.253-1.478.873.873 0 0 1 .686-1.417z" transform="translate(134.259 27.444)" style="fill:#f9d366"/>
+    <path d="M-94.5-50.873c0-.056.007-.112.007-.169a2.252 2.252 0 0 0-2.251-2.251A2.251 2.251 0 0 0-99-51.042c0 .057 0 .113.007.169" transform="translate(111.865 53.793)" style="fill:#f9d366"/>
+    <path d="M-145.027-92.845h18.118a2.209 2.209 0 0 0 2.209-2.209 2.209 2.209 0 0 0-2.209-2.209h-22.809a2.209 2.209 0 0 0-2.209 2.209 2.209 2.209 0 0 0 2.209 2.209h4.691" transform="translate(153.431 118.74)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <path d="M-405.94-90.605c-1.1-2.5-3.331-4.311-7.908-4.311-14.645 0-5.314 18.585-11.4 18.585" transform="translate(428.963 97.667)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <path d="M-61.682-264.625c-3.787 0-1.4-8.838-3.49-14.214" transform="translate(88.203 286.104)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <path d="M0 0a4.417 4.417 0 0 0 4.417 4.417A4.417 4.417 0 0 0 8.834 0" transform="translate(10.701 26.083)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <path d="M-94.5-50.873c0-.056.007-.112.007-.169a2.252 2.252 0 0 0-2.251-2.251A2.251 2.251 0 0 0-99-51.042c0 .057 0 .113.007.169" transform="translate(111.865 53.793)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <path d="M-72.545 0S-76 1.907-76 7.266" transform="translate(78.495 1.711)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <path d="M-42 0a5.267 5.267 0 0 0-2 4.481" transform="translate(44.499 1.892)" style="stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke:#000;fill:none"/>
+    <g data-name="타원 1086" transform="translate(20.575 5.315)" style="fill:#f62424;stroke:#000">
+        <circle cx="4.962" cy="4.962" r="4.962" style="stroke:none"/>
+        <circle cx="4.962" cy="4.962" r="5.462" style="fill:none"/>
+    </g>
+    <path data-name="패스 20190" d="M-4.7-11.156v4.862h1.489v-2.67l1.718 2.67H.1v-4.862h-1.488v2.832l-1.718-2.832z" transform="translate(27.836 19.079)" style="fill:#fff"/>
+</svg>

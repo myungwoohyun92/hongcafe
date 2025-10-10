@@ -1,11 +1,11 @@
 'use client';
-import { useState } from "react";
+import useCateStore from "@/store/useCateStore";
 
 import Link from "next/link";
 import Image from "next/image";
 
 const HeaderSearch = () => {
-    const [cate, setCate] = useState('purple');
+    const {cate, setCate} = useCateStore();
     const cateData = [
         {title: '퍼플', attr: 'purple'},
         {title: '그린', attr: 'green'},
@@ -20,7 +20,7 @@ const HeaderSearch = () => {
                 <ul className={`relative flex items-center before:content-[''] before:absolute before:w-[6rem] before:h-[3.2rem] before:top-0 ${cate === 'purple' ? 'before:left-0 before:bg-[var(--primary-1)]' : 'before:left-[50%] green-1 before:bg-[var(--green-1)]'} before:rounded-[2.4rem] before:transition-all before:duration-300 before:ease-[cubic-bezier(.17,.67,.85,.69)]`}>
                     {cateData.map(({title, attr}, idx) => (
                         <li className="relative" key={idx}>
-                            <button className={`flex items-center justify-center w-[6rem] h-[3.2rem] font-bold transition-all duration-300 ease-[cubic-bezier(.17,.67,.85,.69)] ${cate === attr ? 'text-[#fff]' : ''}`} onClick={() => cateClickhandler(attr)}>{title}</button>
+                            <button className={`flex items-center justify-center w-[6rem] h-[3.2rem] font-bold transition-all duration-300 ease-[cubic-bezier(.17,.67,.85,.69)] cursor-pointer ${cate === attr ? 'text-[#fff]' : ''}`} onClick={() => cateClickhandler(attr)}>{title}</button>
                         </li>
                     ))}
                 </ul>
