@@ -1,5 +1,5 @@
 import List from "./List";
-import TopCate from "@/components/TopCate";
+import TopCate from "@/_components/TopCate";
 import MainSlide from "./MainSlide";
 export default function Home() {
   const bgColors = {

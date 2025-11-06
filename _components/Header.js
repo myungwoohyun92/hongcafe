@@ -23,7 +23,7 @@ const Header = () => {
     }, [activeNav]);
     
     const headerData = [
-        {title: '전화상담', link: ''},
+        {title: '전화상담', link: '/'},
         {title: '채팅상담', link: ''},
         {title: '클래스', link: ''},
         {title: '콘텐츠', link: ''},

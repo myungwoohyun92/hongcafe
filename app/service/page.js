@@ -1,5 +1,6 @@
-import TopCate from "@/components/TopCate";
-import ServiceList from "./List";
+import TopCate from "@/_components/TopCate";
+import ServiceList from "./_components/ServiceList";
+// import ServiceTest from "./_components/ServiceTest";
 
 const ServicePage = () => {
     const cateList = [
