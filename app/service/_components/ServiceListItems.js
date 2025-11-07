@@ -3,8 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const ServiceListItems = ({listRender}) => {
-    const [items, setItems] = useState([...listRender.items]);
+const ServiceListItems = ({data}) => {
+    const [items, setItems] = useState([...data.items]);
     const [active, setActive] = useState(0);
     const serviceArr = [
         {title: '부적', link: ''},

@@ -3,34 +3,33 @@ import {useState, useEffect} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useCateStore from '@/store/useCateStore';
+import ListEmpty from '@/_components/ListEmpty';
 
-const List = ({bgColors}) => {
-    const [items, setItems] = useState([]);
+const MainListItems = ({data, bgColors}) => {
+    const [items, setItems] = useState([...data.items]);
     const [activeNav, setActiveNav] = useState(0);
     const cate = useCateStore((state) => state.cate);
     const navData = [
-        {title: '맞춤추천', link: ''},
-        {title: '신규', link: ''},
-        {title: '급상승', link: ''},
-        {title: '상담중', link: ''},
-    ]
-    // const activeNavArr = Array.from(navData).map((_, idx) => `after:left-[${idx/navData.length*100}%]`);
-    // ${activeNav/navData.length*100}%
-    // console.log(navData.length, activeNavArr);
+        {title: '맞춤추천', type: 'cematch'},
+        {title: '신규', type: 'itemNew'},
+        {title: '급상승', type: 'recent'},
+        {title: '상담중', type: 'calling'},
+    ];
+    
     const activeNavArr = ['after:left-[2rem]', 'after:left-[calc(1rem+25%)]', 'after:left-[50%]', 'after:left-[calc(75%-1rem)]']
-    const getListRender = async (cate) => {
+    const getListRender = async (listCate, type) => {
         try {
             let reqData = {
                 offset: 0,
                 limit: 10,
                 cate: 'call',
-                order: 'cematch',
+                order: type ?? 'cematch',
             }
             const greenData = {
                 isGreen: 'Y', 
-                page_pg_type: cate
+                page_pg_type: listCate ?? cate
             }
-            if(cate === 'green') reqData = {...reqData, ...greenData};
+            if(listCate === 'green') reqData = {...reqData, ...greenData};
 
             const response = await fetch('/api/items/getListMobile', {
                 method: 'POST', 
@@ -40,7 +39,7 @@ const List = ({bgColors}) => {
                 body: JSON.stringify(reqData)
             });
             const data = await response.json();
-            data.response === 'success' && setItems(data.items);
+            data.response === 'success' ? setItems(data.items) : setItems([])
         } catch (err) {
         
         } finally {
@@ -48,20 +47,26 @@ const List = ({bgColors}) => {
         }
     }
 
+    const navClickHandler = (type, index) => {
+        setActiveNav(index);
+        getListRender(cate, type);
+    }
+
     useEffect(() => {
-        getListRender(cate);
-    }, [cate]);
+        // getListRender(cate);
+    });
     return (
         <div>
             <ul className={`relative flex items-center pt-[.8rem] px-[2rem] border-b border-[#e9e9e9] before:content-[""] before:w-[100%] before:h-[.8rem] before:bg-[#f5f5f5] before:border-t before:border-b before:border-[#e9e9e9] before:absolute before:top-0 before:left-0 before:z-[1] after:content-[""] after:absolute ${activeNavArr[activeNav]} after:bottom-0 after:w-[calc((100%-4rem)/4)] after:h-[.3rem] after:translate-y-[50%] after:bg-[#6335b4] after:rounded-[0.15rem] after:transition-all after:duration-300 after:ease-in-out`}>
-                {navData.map(({title, link}, idx) => (
+                {navData.map(({title, type}, idx) => (
                     <li key={idx} className='flex-[1]'>
-                        <button className={`${activeNav === idx ? `font-bold text-[#6335b4]` : `font-[500]`} text-[1.8rem] w-[100%] h-[6rem] transition-all duration-300 ease-in`} onClick={() => setActiveNav(idx)}>{title}</button>
+                        <button className={`${activeNav === idx ? `font-bold text-[#6335b4] pointer-events-none` : `font-[500]`} text-[1.8rem] w-[100%] h-[6rem] transition-all duration-300 ease-in`} onClick={() => navClickHandler(type, idx)}>{title}</button>
                     </li>
                 ))}
             </ul>
             <ul className='flex flex-col gap-[.6rem] bg-[#f5f5f5]'>
-                {items.map((elm, idx) => {
+                {items.length 
+                ? items.map((elm, idx) => {
                     const {it_code, it_main_pic, it_category_name, it_category_code, it_nick, it_060_code, it_connect_number, it_style_key, it_counsel_key, it_coin_price, view_win_comment, view_win_point, it_new, ed_cnt_no, ce_level} = elm;
                     return (
                         <li key={idx} className='p-[2.4rem_2rem_0] bg-[#fff] border-t-1 border-b-1 border-[#e9e9e9] first:border-t-0 last:border-b-0'>
@@ -125,10 +130,11 @@ const List = ({bgColors}) => {
                             </button>
                         </li>
                     )
-                })}
+                })
+                : <ListEmpty />}
             </ul>
         </div>
     )
 }
 
-export default List;
+export default MainListItems;

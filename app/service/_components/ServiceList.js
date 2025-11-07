@@ -9,8 +9,6 @@ const ServiceList = async () => {
         order: 'random',
     };
 
-    console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
-
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/service/getServiceListMobile`, {
         method: 'POST', 
         headers: {
@@ -20,7 +18,7 @@ const ServiceList = async () => {
     });
     const data = await response.json();
 
-    return <ServiceListItems listRender={data} />
+    return <ServiceListItems data={data} />
 }
 
 export default ServiceList;

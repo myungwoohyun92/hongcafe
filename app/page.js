@@ -1,6 +1,7 @@
-import List from "./List";
+import MainList from "./_components/MainList";
 import TopCate from "@/_components/TopCate";
-import MainSlide from "./MainSlide";
+import MainSlide from "./_components/MainSlide";
+
 export default function Home() {
   const bgColors = {
     fortune: 'bg-[#c21129]',
@@ -16,12 +17,12 @@ export default function Home() {
     {title: '성공사례', img: {width: 34, height: 30, src: 'category-success.svg'}, link: ''},
     {title: '이벤트', img: {width: 29, height: 32, src: 'category-event.svg'}, link: ''},
     {title: '후기', img: {width: 32, height: 33, src: 'category-review.svg'}, link: ''},
-  ]
+  ];
   return (
     <main>
       <TopCate cateList={cateList} />
       <MainSlide bgColors={bgColors} />
-      <List bgColors={bgColors} />
+      <MainList bgColors={bgColors} />
     </main>
   );
 }

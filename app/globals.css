@@ -38,3 +38,17 @@ body {
 button {
   cursor: pointer;
 }
+
+@keyframes skeletonAni {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: 100%;
+  }
+}
+
+.skeleton-ani {
+  background: linear-gradient(to right, #DDD 0%, #f6f6f6 50%, #DDD 100%) 50% 0 / 300%;
+  animation: skeletonAni 1s infinite linear alternate;
+}

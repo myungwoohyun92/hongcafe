@@ -10,7 +10,7 @@ const Footer = () => {
         {title: '코인충전', img: 'icoFooternavCoin.svg', link: '/call'},
     ]
     return (
-        <footer className="fixed bottom-0 left-[50%] max-w-[71.8rem] w-[100%] translate-x-[-50%] border-t border-solid border-[#0000001a] bg-[#ffffffe6]">
+        <footer className="fixed bottom-0 left-[50%] max-w-[71.8rem] w-[100%] translate-x-[-50%] border-t border-solid border-[#0000001a] bg-[#ffffffe6] z-10">
             <ul className="flex items-center">
                 {footerData.map(({title, img, link}, idx) => (
                     <li key={idx} className="flex-1">

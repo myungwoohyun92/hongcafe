@@ -3,6 +3,7 @@ import useCateStore from "@/store/useCateStore";
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const HeaderSearch = () => {
     const {cate, setCate} = useCateStore();
