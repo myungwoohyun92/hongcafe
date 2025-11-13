@@ -1,13 +1,15 @@
 'use client';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useCateStore from '@/store/useCateStore';
 import ListEmpty from '@/_components/ListEmpty';
+import { bgColors, cateText } from '@/lib/constants';
 
-const MainListItems = ({data, bgColors}) => {
+const MainListItems = ({data, pageCate}) => {
     const [items, setItems] = useState([...data.items]);
     const [activeNav, setActiveNav] = useState(0);
+    const isFirstRender = useRef(true);
     const cate = useCateStore((state) => state.cate);
     const navData = [
         {title: '맞춤추천', type: 'cematch'},
@@ -15,14 +17,31 @@ const MainListItems = ({data, bgColors}) => {
         {title: '급상승', type: 'recent'},
         {title: '상담중', type: 'calling'},
     ];
+
+    const themeColors = {
+        purple: {
+            text: 'text-[var(--purple-1)]',
+            afterBg: 'after:bg-[var(--purple-1)]',
+        },
+        green: {
+            text: 'text-[var(--green-1)]',
+            afterBg: 'after:bg-[var(--green-1)]',
+        },
+    }
     
-    const activeNavArr = ['after:left-[2rem]', 'after:left-[calc(1rem+25%)]', 'after:left-[50%]', 'after:left-[calc(75%-1rem)]']
-    const getListRender = async (listCate, type) => {
+    const activeNavArr = ['after:left-[2rem]', 'after:left-[calc(1rem+25%)]', 'after:left-[50%]', 'after:left-[calc(75%-1rem)]'];    
+
+    const navClickHandler = (type, index) => {
+        setActiveNav(index);
+        getListRender(cate, type);
+    }
+
+    const getListRender = useCallback(async (listCate, type) => {
         try {
             let reqData = {
                 offset: 0,
                 limit: 10,
-                cate: 'call',
+                cate: pageCate,
                 order: type ?? 'cematch',
             }
             const greenData = {
@@ -45,22 +64,26 @@ const MainListItems = ({data, bgColors}) => {
         } finally {
 
         }
-    }
-
-    const navClickHandler = (type, index) => {
-        setActiveNav(index);
-        getListRender(cate, type);
-    }
+    }, [cate]);
 
     useEffect(() => {
-        // getListRender(cate);
-    });
+        if(isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+    }, [cate]);
+    
+    useEffect(() => {
+        return () => {
+            isFirstRender.current = true;
+        }
+    }, []);
     return (
         <div>
-            <ul className={`relative flex items-center pt-[.8rem] px-[2rem] border-b border-[#e9e9e9] before:content-[""] before:w-[100%] before:h-[.8rem] before:bg-[#f5f5f5] before:border-t before:border-b before:border-[#e9e9e9] before:absolute before:top-0 before:left-0 before:z-[1] after:content-[""] after:absolute ${activeNavArr[activeNav]} after:bottom-0 after:w-[calc((100%-4rem)/4)] after:h-[.3rem] after:translate-y-[50%] after:bg-[#6335b4] after:rounded-[0.15rem] after:transition-all after:duration-300 after:ease-in-out`}>
+            <ul className={`relative flex items-center pt-[.8rem] px-[2rem] border-b border-[#e9e9e9] before:content-[""] before:w-[100%] before:h-[.8rem] before:bg-[#f5f5f5] before:border-t before:border-b before:border-[#e9e9e9] before:absolute before:top-0 before:left-0 before:z-[1] after:content-[""] after:absolute ${activeNavArr[activeNav]} after:bottom-0 after:w-[calc((100%-4rem)/4)] after:h-[.3rem] after:translate-y-[50%] ${themeColors[cate]['afterBg']} after:rounded-[0.15rem] after:transition-all after:duration-300 after:ease-in-out`}>
                 {navData.map(({title, type}, idx) => (
                     <li key={idx} className='flex-[1]'>
-                        <button className={`${activeNav === idx ? `font-bold text-[#6335b4] pointer-events-none` : `font-[500]`} text-[1.8rem] w-[100%] h-[6rem] transition-all duration-300 ease-in`} onClick={() => navClickHandler(type, idx)}>{title}</button>
+                        <button className={`${activeNav === idx ? `font-bold ${themeColors[cate]['text']} pointer-events-none` : `font-[500]`} text-[1.8rem] w-[100%] h-[6rem] transition-all duration-300 ease-in`} onClick={() => navClickHandler(type, idx)}>{title}</button>
                     </li>
                 ))}
             </ul>
@@ -72,7 +95,7 @@ const MainListItems = ({data, bgColors}) => {
                         <li key={idx} className='p-[2.4rem_2rem_0] bg-[#fff] border-t-1 border-b-1 border-[#e9e9e9] first:border-t-0 last:border-b-0'>
                             <Link href={`/${it_code}`} className='flex gap-[2rem] h-[10.8rem]'>
                                 <div style={{backgroundImage: `url(/img/list/bg_${it_category_code}.${it_category_code === 'fortune' ? 'png' : 'jpg'})`}} className="relative bg-no-repeat bg-center bg-cover rounded-[.6rem] overflow-hidden">
-                                    <span className={`absolute top-[.6rem] left-[.6rem] flex items-center justify-center w-[3.4rem] p-[.6rem_.5rem_.5rem_.6rem] rounded-[.4rem] text-[1.2rem] font-bold text-[#fff] ${bgColors[it_category_code]} leading-[1.18]`}>전화{it_category_name}</span>
+                                    <span className={`absolute top-[.6rem] left-[.6rem] flex items-center justify-center w-[3.4rem] p-[.6rem_.5rem_.5rem_.6rem] rounded-[.4rem] text-[1.2rem] font-bold text-[#fff] ${bgColors[it_category_code]} leading-[1.18]`}>{cateText[pageCate]}{it_category_name}</span>
                                     <Image src={it_main_pic} alt="" width={158} height={108} />
                                 </div>
                                 <div className='flex justify-between flex-1 border-b border-solid border-[#e9e9e9]'>
@@ -89,7 +112,7 @@ const MainListItems = ({data, bgColors}) => {
                                             <span className='text-[1.4rem] text-[#666]'>(30초)</span>
                                         </li>
                                     </ul>
-                                    <div className='flex items-center justify-center gap-[.8rem] w-[18rem] h-[6rem] rounded-[.4rem] bg-[var(--primary-1)] text-[#fff] text-[1.8rem] font-bold mt-[1.4rem]'>
+                                    <div className='flex items-center justify-center gap-[.8rem] w-[18rem] h-[6rem] rounded-[.4rem] text-[#fff] text-[1.8rem] font-bold mt-[1.4rem]' style={{background: `var(--${cate}-1)`}}>
                                         <Image src='/img/list/i-list-call.png' alt='전화 상담' width={18} height={18} />
                                         <p>전화 상담</p>
                                     </div>

@@ -3,11 +3,6 @@ import TopCate from "@/_components/TopCate";
 import MainSlide from "./_components/MainSlide";
 
 export default function Home() {
-  const bgColors = {
-    fortune: 'bg-[#c21129]',
-    saju: 'bg-[#d67a00]',
-    tarot: 'bg-[#6335b4]',
-  }
   const cateList = [
     {title: '전체', img: {width: 36, height: 30, src: 'category-all.svg'}, link: ''},
     {title: '타로', img: {width: 35, height: 32, src: 'category-tarot.svg'}, link: ''},
@@ -21,8 +16,8 @@ export default function Home() {
   return (
     <main>
       <TopCate cateList={cateList} />
-      <MainSlide bgColors={bgColors} />
-      <MainList bgColors={bgColors} />
+      <MainSlide pageCate={'call'} />
+      <MainList pageCate={'call'} />
     </main>
   );
 }

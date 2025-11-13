@@ -1,13 +1,13 @@
 import MainSlideItems from './MainSlideItems';
 
-const MainSlide = async ({bgColors}) => {
+const MainSlide = async ({pageCate}) => {
     const reqData = {
         offset: 0,
         limit: 20,
-        cate: 'call',
+        cate: pageCate,
         order: 'suggest',
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/items/getListMobile`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${pageCate === 'call' ? 'items' : pageCate}/getListMobile`, {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const MainSlide = async ({bgColors}) => {
     });
     const data = await response.json();
 
-    return <MainSlideItems data={data} bgColors={bgColors} />
+    return <MainSlideItems data={data} pageCate={pageCate} />
 }
 
 export default MainSlide;

@@ -1,50 +1,71 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import useCateStore from "@/store/useCateStore";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Mousewheel, Pagination } from 'swiper/modules';
 import 'swiper/css';
+import { bgColors, cateText } from "@/lib/constants";
 
-const MainSlideItems = ({data, bgColors}) => {
+const MainSlideItems = ({data, pageCate}) => {
     const [isMount, setIsMount] = useState(false);
     const [items, setItems] = useState([...data.items]);
+    const isFirstRender = useRef(true);
+    const cate = useCateStore((state) => state.cate);
     const themeBanner = [
         {title: 'VIP 고객들이 선택하는 인기 상담사', link: '/themebanner/theme/popular'},
         {title: '많은 분이 다시 찾는 상담사', link: '/themebanner/theme/revisiting'},
         {title: '재회를 위한 조언, 이 상담사 최고에요', link: '/themebanner/theme/reunion'},
         {title: '진솔한 공감과 조언! 대화가 잘 통한 상담사', link: '/themebanner/theme/effective'},
         {title: '나만 알고 싶은 단골 상담사', link: '/themebanner/theme/regular'},
-    ]
-                
-    const getSlideRender = async () => {
-        try {
-            const reqData = {
-                offset: 0,
-                limit: 20,
-                cate: 'call',
-                order: 'suggest',
-            }
-            const response = await fetch('/api/items/getListMobile', {
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(reqData)
-            });
-            const data = await response.json();
-            data.response === 'success' && setItems(data.items);
-        } catch (err) {
-        
-        } finally {
-
-        }
-    }
+    ];
 
     useEffect(() => {
-        setTimeout(() => {
-            setIsMount(true);
-        }, 1200);
+        setIsMount(true);
+    }, []);
+
+    useEffect(() => {
+        const getSlideRender = async (listCate, type) => {
+            try {
+                let reqData = {
+                    offset: 0,
+                    limit: 20,
+                    cate: pageCate,
+                    order: 'suggest',
+                }
+                const greenData = {
+                    isGreen: 'Y', 
+                    page_pg_type: listCate ?? cate
+                }
+                if(listCate === 'green') reqData = {...reqData, ...greenData};
+                const response = await fetch('/api/items/getListMobile', {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reqData)
+                });
+                const data = await response.json();
+                data.response === 'success' && setItems(data.items);
+            } catch (err) {
+            
+            } finally {
+
+            }
+        }
+
+        if(isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+        getSlideRender(cate);
+    }, [cate]);
+
+    useEffect(() => {
+        return () => {
+            isFirstRender.current = true;
+        }
     }, []);
 
     return (
@@ -62,7 +83,7 @@ const MainSlideItems = ({data, bgColors}) => {
                     <SwiperSlide key={idx}>
                         <Link href={`/profile/${ce_code}`} className="flex flex-col gap-[.5rem]">
                             <div style={{backgroundImage: `url(/img/list/bg_${it_category_code}.${it_category_code === 'fortune' ? 'png' : 'jpg'})`}} className={`${it_type}-${it_category_code} cate-${it_category_code} rounded-[.6rem] overflow-hidden h-[10.7rem] bg-no-repeat bg-cover`}>
-                                <span className={`absolute top-[.6rem] left-[.6rem] flex items-center justify-center w-[2.9rem] p-[.6rem_.5rem_.5rem_.6rem] rounded-[.2rem] text-[1rem] font-bold text-[#fff] ${bgColors[it_category_code]} leading-[1.18]`}>전화{it_category_name}</span>
+                                <span className={`absolute top-[.6rem] left-[.6rem] flex items-center justify-center w-[2.9rem] p-[.6rem_.5rem_.5rem_.6rem] rounded-[.2rem] text-[1rem] font-bold text-[#fff] ${bgColors[it_category_code]} leading-[1.18]`}>{cateText[pageCate]}{it_category_name}</span>
                                 <Image src={it_main_pic} alt={it_nick} width={158} height={108} />
                             </div>
                             <p className="mt-[.3rem] text-[1.4rem] font-bold leading-[1]">{it_nick}</p>

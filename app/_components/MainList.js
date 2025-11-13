@@ -2,11 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import MainListItems from './MainListItems';
 
-const MainList = async ({bgColors}) => {
+const MainList = async ({pageCate}) => {
     let reqData = {
         offset: 0,
         limit: 10,
-        cate: 'call',
+        cate: pageCate,
         order: 'cematch',
         isGreen: 'Y', 
         page_pg_type: 'green'
@@ -25,7 +25,7 @@ const MainList = async ({bgColors}) => {
         body: JSON.stringify(reqData)
     });
     const data = await response.json();
-    return <MainListItems data={data} bgColors={bgColors} />
+    return <MainListItems data={data} pageCate={pageCate} />
 }
 
 export default MainList;

@@ -3,7 +3,6 @@ import ServiceList from "./_components/ServiceList";
 // import ServiceTest from "./_components/ServiceTest";
 
 const ServicePage = () => {
-    console.log('test');
     const cateList = [
         {title: '전체', img: {width: 36, height: 30, src: 'category-all.svg'}, link: ''},
         {title: '기도초', img: {width: 35, height: 32, src: 'category-tarot.svg'}, link: ''},

@@ -3,12 +3,26 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import HeaderEvent from "./HeaderEvent";
 import HeaderSearch from "./HeaderSearch";
+import useCateStore from "@/store/useCateStore";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+    const pathName = usePathname();
+    const cate = useCateStore((state) => state.cate);
     const [activeNav, setActiveNav] = useState(0);
     const tabRefs = useRef([]);
     const [indicatorStyle, setIndicatorStyle] = useState({});
-    const activeNavArr = ['after:left-[2rem]', 'after:left-[calc(1rem+25%)]', 'after:left-[50%]', 'after:left-[calc(75%-1rem)]'];
+
+    const textColors = {
+        purple: 'text-[var(--purple-1)]',
+        green: 'text-[var(--green-1)]',
+    }
+
+    const isActive = (href) => {
+        if(href === '') return;
+        if(href === '/') return pathName === '/';
+        return pathName.startsWith(href);
+    }
 
     useEffect(() => {
         if (tabRefs.current[activeNav]) {
@@ -24,7 +38,7 @@ const Header = () => {
     
     const headerData = [
         {title: '전화상담', link: '/'},
-        {title: '채팅상담', link: ''},
+        {title: '채팅상담', link: '/chat'},
         {title: '클래스', link: ''},
         {title: '콘텐츠', link: ''},
         {title: '홍카페 홍대점', link: ''},
@@ -40,7 +54,7 @@ const Header = () => {
                     {headerData && 
                     headerData.map(({title, link}, idx) => (
                         <li key={idx} className="flex h-[100%]">
-                            <Link href={link} ref={e => tabRefs.current[idx] = e} className={`${activeNav === idx ? `font-bold text-[#6335b4]` : `font-[500]`} flex items-center h-[100%] px-[1.5rem]`} onClick={() => setActiveNav(idx)}>{title}</Link>
+                            <Link href={link} ref={e => tabRefs.current[idx] = e} className={`${isActive(link) ? `font-bold ${textColors[cate]}` : `font-[500]`} flex items-center h-[100%] px-[1.5rem]`} onClick={() => setActiveNav(idx)}>{title}</Link>
                         </li>
                     ))}
                 </ul>
