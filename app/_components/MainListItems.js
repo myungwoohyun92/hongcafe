@@ -71,8 +71,9 @@ const MainListItems = ({data, pageCate}) => {
             isFirstRender.current = false;
             return;
         }
+        getListRender(cate)
     }, [cate]);
-    
+
     useEffect(() => {
         return () => {
             isFirstRender.current = true;
@@ -113,8 +114,8 @@ const MainListItems = ({data, pageCate}) => {
                                         </li>
                                     </ul>
                                     <div className='flex items-center justify-center gap-[.8rem] w-[18rem] h-[6rem] rounded-[.4rem] text-[#fff] text-[1.8rem] font-bold mt-[1.4rem]' style={{background: `var(--${cate}-1)`}}>
-                                        <Image src='/img/list/i-list-call.png' alt='전화 상담' width={18} height={18} />
-                                        <p>전화 상담</p>
+                                        <Image src={`/img/list/i-list-${pageCate}.png`} alt={`${cateText[pageCate]} 상담`} width={18} height={18} />
+                                        <p>{cateText[pageCate]} 상담</p>
                                     </div>
                                 </div>
                             </Link>
