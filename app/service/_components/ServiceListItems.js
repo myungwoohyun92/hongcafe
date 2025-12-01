@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { formatter } from "@/lib/constants";
 
 const ServiceListItems = ({data}) => {
     const [items, setItems] = useState([...data.items]);
@@ -81,7 +82,7 @@ const ServiceListItems = ({data}) => {
                                         <p className="text-[1.8rem]">{ce_nick}</p>
                                         <div className="flex gap-[.6rem] items-center">
                                             <Image src="/img/list/i-list-won.svg" alt="" width={18} height={18} />
-                                            <p className="font-bold">{gd_price}</p>
+                                            <p className="font-bold">{formatter.format(gd_price)}</p>
                                         </div>
                                     </li>
                                     <li className="relative before:content-[''] before:absolute before:top-[-1rem] before:w-[100%] before:h-[1px] before:bg-[#e9e9e9] flex gap-[1.6rem]">
@@ -93,7 +94,7 @@ const ServiceListItems = ({data}) => {
                                         <div className="flex items-center gap-[.4rem] text-[1.4rem] leading-[1.5]">
                                             <Image src='/img/list/i-list-star.svg' alt='' width={14} height={14} className='mr-[.2rem]' />
                                             <p className="font-bold">5</p>
-                                            <span className="text-[#666]">({gd_cmt_cnt === 0 ? `0` : view_win_point})</span>
+                                            <span className="text-[#666]">({gd_cmt_cnt === 0 ? gd_cmt_cnt : view_win_point})</span>
                                         </div>
                                     </li>
                                 </ul>

@@ -1,6 +1,8 @@
 import "./globals.css";
+import Script from "next/script";
 import Header from "@/_components/Header";
 import Footer from "@/_components/Footer";
+
 
 export const metadata = {
   title: "인생은 모르니까, 전화운세 - 홍카페",
@@ -10,6 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script src={`https://use.typekit.net/${process.env.ADOBE_CONFIG_KIT_ID}.js`} strategy="afterInteractive" />
+      </head>
       <body>
         <div className="max-w-[72rem] w-[100%] min-h-[100dvh] mx-[auto] border-r border-l border-solid border-[#eee] pb-[7.4rem]">
           <Header />

@@ -4,7 +4,7 @@ import Image from "next/image";
 const Footer = () => {
     const footerData = [
         {title: '홈', img: 'icoFooternavHome.svg', link: '/call'},
-        {title: '카테고리', img: 'icoFooternavCategory.svg', link: '/call'},
+        {title: '카테고리', img: 'icoFooternavCategory.svg', link: '/category'},
         {title: '단골', img: 'icoFooternavCustomer.svg', link: '/call'},
         {title: '로그인', img: 'icoFooternavLogin.svg', link: '/call'},
         {title: '코인충전', img: 'icoFooternavCoin.svg', link: '/call'},

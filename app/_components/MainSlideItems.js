@@ -6,7 +6,7 @@ import useCateStore from "@/store/useCateStore";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Mousewheel, Pagination } from 'swiper/modules';
 import 'swiper/css';
-import { bgColors, cateText } from "@/lib/constants";
+import { bgColors, cateText, formatter } from "@/lib/constants";
 
 const MainSlideItems = ({data, pageCate}) => {
     const [isMount, setIsMount] = useState(false);
@@ -23,6 +23,10 @@ const MainSlideItems = ({data, pageCate}) => {
 
     useEffect(() => {
         setIsMount(true);
+
+        return () => {
+            isFirstRender.current = true;
+        }
     }, []);
 
     useEffect(() => {
@@ -62,12 +66,6 @@ const MainSlideItems = ({data, pageCate}) => {
         getSlideRender(cate);
     }, [cate]);
 
-    useEffect(() => {
-        return () => {
-            isFirstRender.current = true;
-        }
-    }, []);
-
     return (
         <section className="py-[2.4rem] px-[2rem] mx-[-2rem] mt-[1.2rem]">
             <div className="flex justify-between items-center px-[2rem] mb-[1.2rem]">
@@ -78,7 +76,7 @@ const MainSlideItems = ({data, pageCate}) => {
                 </Link>
             </div>
             {isMount 
-            ? <><Swiper slidesOffsetBefore={20} spaceBetween={12} slidesPerView={4} style={{paddingRight: '2rem'}}>
+            ? <Swiper slidesOffsetBefore={20} spaceBetween={12} slidesPerView={4} style={{paddingRight: '2rem'}}>
                 {items.map(({ce_code, it_type, it_category_name, it_category_code, it_main_pic, it_nick, it_coin_price, status_type, call_status}, idx) => (
                     <SwiperSlide key={idx}>
                         <Link href={`/profile/${ce_code}`} className="flex flex-col gap-[.5rem]">
@@ -90,16 +88,15 @@ const MainSlideItems = ({data, pageCate}) => {
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-[.2rem] leading-[1]">
                                     <Image src={'/img/list/i-list-won.svg'} alt="원" width={14} height={14} />
-                                    <p className="text-[1.3rem] font-bold ml-[.4rem]">{it_coin_price}</p>
+                                    <p className="text-[1.3rem] font-bold ml-[.4rem]">{formatter.format(it_coin_price)}</p>
                                     <span className="text-[1.1rem] text-[#666]">(30초)</span>
                                 </div>
-                                <div className={`live-state ${status_type} flex items-center justify-center font-bold text-[1rem] rounded-[.2rem] bg-[#6335b4] px-[.4rem] h-[1.8rem] text-[#fff]`}>{call_status === 'on' ? '상담중' : '상담가능'}</div>
+                                <div className={`live-state ${status_type} flex items-center justify-center font-bold text-[1rem] rounded-[.2rem] bg-[#6335b4] px-[.4rem] h-[1.8rem] text-[#fff] leading-[1]`}>{call_status === 'on' ? '상담중' : '상담가능'}</div>
                             </div>
                         </Link>
                     </SwiperSlide>
                 ))}
             </Swiper>
-            </>
             : <ul className="flex items-center gap-[1.2rem] px-[2rem]">
                 {Array.from({length: 4}, (_, idx) => (
                     <li key={idx} className="flex-1">

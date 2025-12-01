@@ -1,19 +1,28 @@
 'use client';
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import useCateStore from "@/store/useCateStore";
+import useJoinBannerStore from "@/store/useJoinBannerStore";
+import { setCookie } from "@/lib/cookies";
 
-const HeaderEvent = () => {
+const HeaderEvent = ({joinBannerState}) => {
+    const [bannerState, setBannerState] = useState(joinBannerState);
     const cate = useCateStore((state) => state.cate);
-    const [headerEvent, setHeaderEvent] = useState(true);
-    const eventClickHandler = e => {
+    const { setBannerHide } = useJoinBannerStore();
+    const eventClickHandler = async (e) => {
         e.stopPropagation();
-        setHeaderEvent(false);
+        await setCookie('joinBannerHide', true);
+        setBannerHide(true);
+        setBannerState(true);
     }
 
+    useEffect(() => {
+        setBannerHide(joinBannerState);
+    }, [joinBannerState]);
+
     return (
-        <Link href={''} className={`relative flex items-center justify-center gap-[.8rem] h-[6.5rem] bg-[url('/img/bg/top-banner.png')] bg-no-repeat bg-center bg-cover font-bold text-[#4e008e] ${headerEvent ? 'flex' : 'hidden'}`}>
+        <Link href={''} className={`relative ${!bannerState ? `flex` : 'hidden'} items-center justify-center gap-[.8rem] h-[6.5rem] bg-[url('/img/bg/top-banner.png')] bg-no-repeat bg-center bg-cover font-bold text-[#4e008e]`}>
             <p>회원가입 시 10,000코인 선물!</p>
             <div className="flex items-center gap-[.7rem] rounded-[1.5rem] h-[2.8rem]  px-[1.2rem] font-bold text-[#fff] text-[1.4rem] leading-1" style={{background: `var(--${cate}-1)`}}>
                 <p className="mb-[-.2rem]">3초 회원가입</p>

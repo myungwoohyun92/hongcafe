@@ -5,6 +5,7 @@ const nextConfig = {
         remotePatterns: [
             new URL('https://kr.object.ncloudstorage.com/**'), 
             new URL('https://img.hongcafe.com/**'), 
+            new URL('https://hongcafe-korea.gcdn.ntruss.com/**'), 
         ],
     },
 };

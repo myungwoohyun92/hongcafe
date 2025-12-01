@@ -1,12 +1,23 @@
 'use client';
-import {useState, useEffect, useRef, useCallback} from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useCateStore from '@/store/useCateStore';
 import ListEmpty from '@/_components/ListEmpty';
-import { bgColors, cateText } from '@/lib/constants';
+import { bgColors, cateText, formatter } from '@/lib/constants';
 
 const MainListItems = ({data, pageCate}) => {
+    useEffect(() => {
+        const documentHeight = document.documentElement.scrollHeight;
+        console.log(documentHeight);
+        const infinityScroll = () => {
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.scrollY;
+            console.log(documentHeight - windowHeight, scrollTop)
+        }
+
+        window.addEventListener('scroll', infinityScroll);
+    }, [])
     const [items, setItems] = useState([...data.items]);
     const [activeNav, setActiveNav] = useState(0);
     const isFirstRender = useRef(true);
@@ -94,7 +105,7 @@ const MainListItems = ({data, pageCate}) => {
                     const {it_code, it_main_pic, it_category_name, it_category_code, it_nick, it_060_code, it_connect_number, it_style_key, it_counsel_key, it_coin_price, view_win_comment, view_win_point, it_new, ed_cnt_no, ce_level} = elm;
                     return (
                         <li key={idx} className='p-[2.4rem_2rem_0] bg-[#fff] border-t-1 border-b-1 border-[#e9e9e9] first:border-t-0 last:border-b-0'>
-                            <Link href={`/${it_code}`} className='flex gap-[2rem] h-[10.8rem]'>
+                            <Link href={`/profile/${it_code}`} className='flex gap-[2rem] h-[10.8rem]'>
                                 <div style={{backgroundImage: `url(/img/list/bg_${it_category_code}.${it_category_code === 'fortune' ? 'png' : 'jpg'})`}} className="relative bg-no-repeat bg-center bg-cover rounded-[.6rem] overflow-hidden">
                                     <span className={`absolute top-[.6rem] left-[.6rem] flex items-center justify-center w-[3.4rem] p-[.6rem_.5rem_.5rem_.6rem] rounded-[.4rem] text-[1.2rem] font-bold text-[#fff] ${bgColors[it_category_code]} leading-[1.18]`}>{cateText[pageCate]}{it_category_name}</span>
                                     <Image src={it_main_pic} alt="" width={158} height={108} />
@@ -109,7 +120,7 @@ const MainListItems = ({data, pageCate}) => {
                                         </li>
                                         <li className='flex items-center gap-[.6rem] mt-[1rem]'>
                                             <Image src="/img/list/i-list-won.svg" alt="" width={18} height={18} />
-                                            <p className='font-bold'>{it_coin_price.toLocaleString('ko-KR')}</p>
+                                            <p className='font-bold'>{formatter.format(it_coin_price)}</p>
                                             <span className='text-[1.4rem] text-[#666]'>(30초)</span>
                                         </li>
                                     </ul>
