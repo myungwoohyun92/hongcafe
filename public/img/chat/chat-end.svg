@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+    <g data-name="그룹 64508" transform="translate(-280 -11)">
+        <g data-name="그룹 64506">
+            <g data-name="그룹 9727">
+                <g data-name="사각형 29791" transform="translate(280 10.999)" style="stroke:#7a4bcb;fill:none">
+                    <rect width="28" height="28" rx="4" style="stroke:none"/>
+                    <rect x=".5" y=".5" width="27" height="27" rx="3.5" style="fill:none"/>
+                </g>
+            </g>
+        </g>
+        <rect width="14" height="2.5" rx="1.25" transform="translate(287 29)" style="fill:#fff"/>
+    </g>
+</svg>

@@ -41,9 +41,10 @@ const ServiceTest = () => {
                 body: JSON.stringify(reqData)
             });
             const data = await response.json();
-            data.response === 'success' && setItems(data.items);
+            if(data.response !== 'success') throw new Error(data.msg);
+            setItems(data.items);
         } catch (err) {
-        
+            throw(err);
         } finally {
 
         }

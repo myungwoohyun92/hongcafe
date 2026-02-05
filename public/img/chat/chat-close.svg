@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+    <g data-name="그룹 64507">
+        <g data-name="그룹 9728">
+            <g data-name="그룹 9727">
+                <g data-name="사각형 29791" transform="translate(0 -.001)" style="stroke:#7a4bcb;fill:none">
+                    <rect width="28" height="28" rx="4" style="stroke:none"/>
+                    <rect x=".5" y=".5" width="27" height="27" rx="3.5" style="fill:none"/>
+                </g>
+            </g>
+        </g>
+        <path d="m14313.768 10652.2-4.281-4.277-4.275 4.277a1.009 1.009 0 0 1-1.428-1.427l4.279-4.28-4.279-4.276a1.01 1.01 0 0 1 1.428-1.428l4.275 4.278 4.281-4.278a1.009 1.009 0 0 1 1.426 1.428l-4.277 4.276 4.277 4.28a1.006 1.006 0 0 1-.715 1.72 1 1 0 0 1-.711-.293z" transform="translate(-14295.486 -10632.49)" style="fill:#fff"/>
+    </g>
+</svg>

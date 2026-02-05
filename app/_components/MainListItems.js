@@ -138,15 +138,12 @@ const MainListItems = ({data, pageCate}) => {
                                         <p className='text-[1.4rem] font-bold leading-[1]'>파트너</p>
                                     </div>
                                     : ``}
-                                    {it_new === 'Y' ?
+                                    {it_new === 'Y' &&
                                     <div className='flex items-center gap-[.6rem]'>
                                         <Image src='/img/list/i-new-pu.svg' alt='' width={18} height={18} />
                                         <p className='text-[1.4rem] font-bold leading-[1]'>신규</p>
-                                    </div>
-                                    : ``}
-                                    {ed_cnt_no ?
-                                    <span className='flex items-center h-[2.4rem] text-[1.2rem] font-[500] border-1 border-[#dcdcdc] bg-[#f8f8f8] px-[.6rem] rounded-[.3rem]'>교육이수</span>
-                                    : ``}
+                                    </div>}
+                                    {ed_cnt_no && <span className='flex items-center h-[2.4rem] text-[1.2rem] font-[500] border-1 border-[#dcdcdc] bg-[#f8f8f8] px-[.6rem] rounded-[.3rem]'>교육이수</span>}
                                 </div>
                                 <div className='flex items-center gap-[1.2rem]'>
                                     <div className='text-[1.4rem] text-[#666]'>최근 3개월</div>
